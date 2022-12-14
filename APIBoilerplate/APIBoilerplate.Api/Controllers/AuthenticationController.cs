@@ -1,3 +1,4 @@
+using APIBoilerplate.Application.Services.Authentication;
 using APIBoilerplate.Contracts.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,15 +8,29 @@ namespace APIBoilerplate.Api.Controllers;
 [Route("auth")]
 public class AuthenticationController : ControllerBase
 {
+    private readonly IAuthenticationService _authenticationService;
+
+    public AuthenticationController(IAuthenticationService authenticationService)
+    {
+        _authenticationService = authenticationService;
+    }
+
+
     [HttpPost("register")]
-    public IActionResult Register(RegisterRequest request)
+    public async Task<IActionResult> Register(RegisterRequest request)
     { 
-        return Ok(request);
+        var authResult = await _authenticationService.RegisterAsync(request.FirstName, request.LastName, request.Email, request.Password);
+        
+        var responce = new AuthenticationResponse(authResult.Id, authResult.FirstName, authResult.LastName, authResult.Email, authResult.Token);
+        return Ok(responce);
     }
 
      [HttpPost("login")]
-    public IActionResult Login(LogInRequest request)
+    public async Task<IActionResult> Login(LogInRequest request)
     { 
-        return Ok(request);
+        var authResult = await _authenticationService.LogInAsync(request.Email, request.Password);
+        
+        var responce = new AuthenticationResponse(authResult.Id, authResult.FirstName, authResult.LastName, authResult.Email, authResult.Token);
+        return Ok(responce);
     }
 }
