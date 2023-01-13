@@ -1,31 +1,29 @@
-using APIBoilerplate.Application.Services.Authentication.Commands;
-using APIBoilerplate.Application.Services.Authentication.Querys;
 using APIBoilerplate.Contracts.Authentication;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
+using MediatR;
+using APIBoilerplate.Application.Services.Authentication.Commands.Register;
+using APIBoilerplate.Application.Authentication.Common;
+using APIBoilerplate.Application.Services.Authentication.Querys.Login;
 using APIBoilerplate.Domain.Common.Errors;
-using APIBoilerplate.Application.Services.Authentication.Common;
 
 namespace APIBoilerplate.Api.Controllers;
 
 [Route("auth")]
 public class AuthenticationController : ApiController
 {
-    private readonly IAuthenticationCommandService _authenticationCommandService;
-    private readonly IAuthenticationQueryService _authenticationQueryService;
+    private readonly ISender sender;
 
-    public AuthenticationController(IAuthenticationCommandService authenticationCommandService,
-                                    IAuthenticationQueryService authenticationQueryService)
+    public AuthenticationController(ISender sender)
     {
-        _authenticationCommandService = authenticationCommandService;
-        _authenticationQueryService = authenticationQueryService;
+        this.sender = sender;
     }
-
 
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest request)
     { 
-        ErrorOr<AuthenticationResult> authResult = await _authenticationCommandService.RegisterAsync(request.FirstName, request.LastName, request.Email, request.Password);
+        var command = new RegisterCommand(request.FirstName, request.LastName, request.Email, request.Password);
+        ErrorOr<AuthenticationResult> authResult = await sender.Send(command);
         return authResult.Match<IActionResult>(
             authResult => Ok(PopulateResponse(authResult)),
             errors => Problem(errors)
@@ -34,17 +32,18 @@ public class AuthenticationController : ApiController
 
     private static AuthenticationResponse PopulateResponse(AuthenticationResult authResult)
     {
-        return new AuthenticationResponse(authResult.Id,
-                                                  authResult.FirstName,
-                                                  authResult.LastName,
-                                                  authResult.Email,
+        return new AuthenticationResponse(authResult.User.Id,
+                                                  authResult.User.FirstName,
+                                                  authResult.User.LastName,
+                                                  authResult.User.Email,
                                                   authResult.Token);
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login(LogInRequest request)
     { 
-        var authResult = await _authenticationQueryService.LogInAsync(request.Email, request.Password);
+        var query = new LoginQuery(request.Email, request.Password);
+        var authResult = await sender.Send(query);
         
 
         if(authResult.IsError && authResult.FirstError == Errors.Authentication.InvalideCredentials)

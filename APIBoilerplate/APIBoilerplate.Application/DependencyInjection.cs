@@ -1,5 +1,6 @@
 using APIBoilerplate.Application.Services.Authentication.Commands;
 using APIBoilerplate.Application.Services.Authentication.Querys;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace APIBoilerplate.Application
@@ -8,8 +9,7 @@ namespace APIBoilerplate.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<IAuthenticationCommandService, AuthenticationCommandService>();
-            services.AddScoped<IAuthenticationQueryService, AuthenticationQueryService>();
+            services.AddMediatR(typeof(DependencyInjection).Assembly);
             return services;
         }
     }
