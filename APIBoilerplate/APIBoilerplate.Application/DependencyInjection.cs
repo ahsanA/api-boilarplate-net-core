@@ -1,4 +1,5 @@
-using APIBoilerplate.Application.Services.Authentication;
+using APIBoilerplate.Application.Services.Authentication.Commands;
+using APIBoilerplate.Application.Services.Authentication.Querys;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace APIBoilerplate.Application
@@ -7,7 +8,8 @@ namespace APIBoilerplate.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IAuthenticationCommandService, AuthenticationCommandService>();
+            services.AddScoped<IAuthenticationQueryService, AuthenticationQueryService>();
             return services;
         }
     }

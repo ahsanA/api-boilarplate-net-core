@@ -1,4 +1,4 @@
-namespace APIBoilerplate.Application.Services.Authentication
+namespace APIBoilerplate.Application.Services.Authentication.Common
 {
     public record AuthenticationResult(
         Guid Id,

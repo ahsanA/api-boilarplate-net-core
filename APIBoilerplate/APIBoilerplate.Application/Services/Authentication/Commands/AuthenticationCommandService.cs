@@ -3,15 +3,16 @@ using APIBoilerplate.Application.Common.Interfaces.Persistence;
 using APIBoilerplate.Domain.Entities;
 using ErrorOr;
 using APIBoilerplate.Domain.Common.Errors;
+using APIBoilerplate.Application.Services.Authentication.Common;
 
-namespace APIBoilerplate.Application.Services.Authentication
+namespace APIBoilerplate.Application.Services.Authentication.Commands
 {
-    public class AuthenticationService : IAuthenticationService
+    public class AuthenticationCommandService : IAuthenticationCommandService
     {
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
         private readonly IUserRepository _userRepository;
 
-        public AuthenticationService(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository)
+        public AuthenticationCommandService(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository)
         {
             _jwtTokenGenerator = jwtTokenGenerator;
             _userRepository = userRepository;
@@ -47,25 +48,5 @@ namespace APIBoilerplate.Application.Services.Authentication
             );
         }
     
-        public async Task<ErrorOr<AuthenticationResult>> LogInAsync(string email, string password)
-        {
-            //check if user exists
-           
-            if(await _userRepository.GetUserByEmailAsync(email) is not User user)
-                return Errors.Authentication.InvalideCredentials;
-            
-            if(user.Password != password)
-                return Errors.Authentication.InvalideCredentials;
-
-                
-            return new AuthenticationResult(
-                user.Id,
-                user.FirstName,
-                user.LastName,
-                user.Email,
-                _jwtTokenGenerator.GenerateToken(user.Id, user.FirstName, user.LastName)
-            );
-        }
-
         }
 }
