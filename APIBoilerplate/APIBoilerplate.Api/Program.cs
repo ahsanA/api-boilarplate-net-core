@@ -1,4 +1,4 @@
-using APIBoilerplate.Api.Errors;
+using APIBoilerplate.Api.Common.Errors;
 using APIBoilerplate.Application;
 using APIBoilerplate.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Infrastructure;

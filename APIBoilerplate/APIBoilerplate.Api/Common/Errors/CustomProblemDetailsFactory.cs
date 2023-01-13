@@ -1,11 +1,11 @@
 using System.Diagnostics;
+using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace APIBoilerplate.Api.Errors
+namespace APIBoilerplate.Api.Common.Errors
 {
     public class CustomProblemDetailsFactory : ProblemDetailsFactory
 {
@@ -91,13 +91,11 @@ namespace APIBoilerplate.Api.Errors
             problemDetails.Extensions["traceId"] = traceId;
         }
 
-        problemDetails.Extensions["custom"] = "traceId";
+        var errors = httpContext?.Items[HttpContextItemKeys.Errors] as List<Error>;
 
-        // var errors = httpContext?.Items[HttpContextItemKeys.Errors] as List<Error>;
-
-        // if (errors is not null)
-        // {
-        //     problemDetails.Extensions.Add("errorCodes", errors.Select(e => e.Code));
-        // }
+        if(errors is not null)
+        {
+            problemDetails.Extensions.Add("errorCodes", errors.Select(e => e.Code));
+        }
     }
 }}

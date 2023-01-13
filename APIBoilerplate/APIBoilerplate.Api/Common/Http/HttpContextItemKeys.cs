@@ -1,4 +1,4 @@
-namespace APIBoilerplate.Api.Errors
+namespace APIBoilerplate.Api.Common.Errors
 {
     public static class HttpContextItemKeys
     {
