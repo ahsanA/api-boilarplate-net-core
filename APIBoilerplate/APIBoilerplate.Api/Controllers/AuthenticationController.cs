@@ -6,6 +6,7 @@ using APIBoilerplate.Application.Services.Authentication.Commands.Register;
 using APIBoilerplate.Application.Authentication.Common;
 using APIBoilerplate.Application.Services.Authentication.Querys.Login;
 using APIBoilerplate.Domain.Common.Errors;
+using MapsterMapper;
 
 namespace APIBoilerplate.Api.Controllers;
 
@@ -13,36 +14,31 @@ namespace APIBoilerplate.Api.Controllers;
 public class AuthenticationController : ApiController
 {
     private readonly ISender sender;
+    private readonly IMapper mapper;
 
-    public AuthenticationController(ISender sender)
+    public AuthenticationController(ISender sender, IMapper mapper)
     {
         this.sender = sender;
+        this.mapper = mapper;
     }
 
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest request)
     { 
-        var command = new RegisterCommand(request.FirstName, request.LastName, request.Email, request.Password);
+        var command = mapper.Map<RegisterCommand>(request);
         ErrorOr<AuthenticationResult> authResult = await sender.Send(command);
         return authResult.Match<IActionResult>(
-            authResult => Ok(PopulateResponse(authResult)),
+            authResult => Ok(mapper.Map<AuthenticationResponse>(authResult)),
             errors => Problem(errors)
         );
     }
 
-    private static AuthenticationResponse PopulateResponse(AuthenticationResult authResult)
-    {
-        return new AuthenticationResponse(authResult.User.Id,
-                                                  authResult.User.FirstName,
-                                                  authResult.User.LastName,
-                                                  authResult.User.Email,
-                                                  authResult.Token);
-    }
+   
 
     [HttpPost("login")]
     public async Task<IActionResult> Login(LogInRequest request)
     { 
-        var query = new LoginQuery(request.Email, request.Password);
+        var query = mapper.Map<LoginQuery>(request);
         var authResult = await sender.Send(query);
         
 
@@ -53,7 +49,7 @@ public class AuthenticationController : ApiController
         }
 
         return authResult.Match<IActionResult>(
-            authResult => Ok(PopulateResponse(authResult)),
+            authResult => Ok(mapper.Map<AuthenticationResponse>(authResult)),
             errors => Problem(errors)
         );        
     }
