@@ -1,6 +1,7 @@
 using APIBoilerplate.Api.Common.Errors;
 using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace APIBoilerplate.Api.Controllers
 {
@@ -9,9 +10,23 @@ namespace APIBoilerplate.Api.Controllers
     {
         protected IActionResult Problem(List<Error> errors)
         {
-            HttpContext.Items.Add(HttpContextItemKeys.Errors, errors);
-            var firstError = errors.First();
-            var statusCode = firstError.Type switch
+            if(errors.Count is 0)
+            {
+                return Problem();
+            }
+
+            if (errors.All(error => error.Type == ErrorType.Validation))
+            {
+                return ValicationProblem(errors);
+            }
+
+            HttpContext.Items.Add(HttpContextItemKeys.Errors, errors);            
+            return Problem(errors.First());
+        }
+
+        private IActionResult Problem(Error error)
+        {
+            var statusCode = error.Type switch
             {
                 ErrorType.Conflict => StatusCodes.Status409Conflict,
                 ErrorType.Validation => StatusCodes.Status400BadRequest,
@@ -19,7 +34,17 @@ namespace APIBoilerplate.Api.Controllers
                 _ => StatusCodes.Status500InternalServerError
             };
 
-            return Problem(statusCode: statusCode, title: firstError.Description);
+            return Problem(statusCode: statusCode, title: error.Description);
+        }
+
+        private IActionResult ValicationProblem(List<Error> errors)
+        {
+            var modelStateDictionary = new ModelStateDictionary();
+            foreach (var error in errors)
+            {
+                modelStateDictionary.AddModelError(error.Code, error.Description);
+            }
+            return ValidationProblem(modelStateDictionary);
         }
     }
 }
