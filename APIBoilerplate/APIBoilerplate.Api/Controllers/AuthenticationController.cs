@@ -7,10 +7,12 @@ using APIBoilerplate.Application.Authentication.Common;
 using APIBoilerplate.Application.Services.Authentication.Querys.Login;
 using APIBoilerplate.Domain.Common.Errors;
 using MapsterMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace APIBoilerplate.Api.Controllers;
 
 [Route("auth")]
+[AllowAnonymous]
 public class AuthenticationController : ApiController
 {
     private readonly ISender sender;
