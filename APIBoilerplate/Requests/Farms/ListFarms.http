@@ -1,0 +1,5 @@
+@host = http://localhost:5118
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2ZGVhN2MwNy1mZjAyLTRiOWMtOGE2Ny02Yzg4ODQ4YmUxMWYiLCJnaXZlbl9uYW1lIjoiQW1pY2hhaSIsImZhbWlseV9uYW1lIjoiTWFudGluYmFuZCIsIm5iZiI6MTY3MzkzODg3NiwiZXhwIjoxNjczOTQyNDc2LCJpYXQiOjE2NzM5Mzg4NzYsImlzcyI6IkFQSUJvaWxhcnBsYXRlIiwiYXVkIjoiQVBJQm9pbGFycGxhdGUifQ.tuNi0uWRDg1WbhSg9Q8N2u20ePSTAEbheXMr42LprLw
+
+GET  {{host}}/farms
+Authorization: Bearer {{token}}
