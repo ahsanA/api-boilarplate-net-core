@@ -1,4 +1,4 @@
-using APIBoilerplate.Domain.Entities;
+using APIBoilerplate.Domain.UserAggregate;
 using APIBoilerplate.Domain.Common.Errors;
 using APIBoilerplate.Application.Authentication.Common;
 using ErrorOr;
@@ -33,7 +33,7 @@ namespace APIBoilerplate.Application.Services.Authentication.Querys.Login
                 
             return new AuthenticationResult(
                 user,
-                _jwtTokenGenerator.GenerateToken(user.Id, user.FirstName, user.LastName)
+                _jwtTokenGenerator.GenerateToken(user.Id.Value, user.FirstName, user.LastName)
             );
         }
     }

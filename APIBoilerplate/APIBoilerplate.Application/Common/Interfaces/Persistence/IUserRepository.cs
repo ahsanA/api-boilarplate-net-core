@@ -1,6 +1,6 @@
 namespace APIBoilerplate.Application.Common.Interfaces.Persistence
 {
-    using APIBoilerplate.Domain.Entities;
+    using APIBoilerplate.Domain.UserAggregate;
 
     public interface IUserRepository
     {
