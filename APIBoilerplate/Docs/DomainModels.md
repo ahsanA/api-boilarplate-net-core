@@ -1,14 +1,46 @@
 # Domain Model
 
-## User
+
+
+## Role
 
 ```json
 {
-    "id": "F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4",
-    "firstName":"Ahsan",
-    "lastName":"Ahmad",
-    "email":"ahsan@apiBoilerplate.xyz",
-    "password":"ahsan@2023!!"
+    "id": "00000000-0000-0000-0000-000000000000",
+    "name":"Owner",
+    "description":"Owner Role"
 }
 ```
-> Note: Password shouldn't be stored in plain text. It should be hashed.
+
+## UserRole
+
+```json
+{
+    "id": "00000000-0000-0000-0000-000000000000",
+    "userId": "00000000-0000-0000-0000-000000000000",
+    "roleId": "00000000-0000-0000-0000-000000000000"
+}
+```
+
+## Permission
+
+```json
+{
+    "id": "00000000-0000-0000-0000-000000000000",
+    "name":"Create",
+    "description":"Create Permission"
+}
+```
+
+## RolePermission
+
+```json
+{
+    "id": "00000000-0000-0000-0000-000000000000",
+    "roleId": "00000000-0000-0000-0000-000000000000",
+    "permissionId": "00000000-0000-0000-0000-000000000000"
+}
+```
+
+
+

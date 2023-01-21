@@ -2,7 +2,7 @@ namespace APIBoilerplate.Infrastructure.Persistence
 {
     using System.Threading.Tasks;
     using APIBoilerplate.Application.Common.Interfaces.Persistence;
-    using APIBoilerplate.Domain.Entities;
+    using APIBoilerplate.Domain.UserAggregate;
 
 
     public class UserRepository : IUserRepository

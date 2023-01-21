@@ -1,4 +1,4 @@
-using APIBoilerplate.Domain.Entities;
+using APIBoilerplate.Domain.UserAggregate;
 
 namespace APIBoilerplate.Application.Authentication.Common
 {
