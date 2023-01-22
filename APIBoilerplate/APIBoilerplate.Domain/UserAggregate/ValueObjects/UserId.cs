@@ -11,6 +11,11 @@ namespace APIBoilerplate.Domain.UserAggregate.ValueObjects
             Value = value;
         }
 
+        public static UserId Create(string userId)
+        {
+            return new UserId(new Guid(userId));
+        }
+
         public static UserId CreateUnique()
         {
             return new(Guid.NewGuid());

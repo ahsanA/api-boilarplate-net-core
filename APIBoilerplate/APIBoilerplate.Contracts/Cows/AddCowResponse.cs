@@ -1,6 +1,6 @@
 namespace APIBoilerplate.Contracts.Cows
 {
-    public record CowOnboardingResponse(
+    public record AddCowResponse(
         string Id,         
         string DisplayNumber,
         double InitialWeight, 

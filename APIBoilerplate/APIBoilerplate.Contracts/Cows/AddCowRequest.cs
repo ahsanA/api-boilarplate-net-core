@@ -1,6 +1,6 @@
 namespace APIBoilerplate.Contracts.Cows
 {
-    public record CreateCowOnboardingRequest(
+    public record AddCowRequest(
         double InitialWeight, 
         double InitialPrice, 
         DateTime OnBoardingDate) ;
