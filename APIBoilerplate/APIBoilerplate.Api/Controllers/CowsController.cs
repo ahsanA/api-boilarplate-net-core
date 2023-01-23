@@ -48,7 +48,9 @@ namespace APIBoilerplate.Api.Controllers
             string addedBy = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
             var command = _mapper.Map<AddCowCommand>((request, addedBy, farmId.Substring(1, 36)));
             var addCowResult = await _mediator.Send(command);
-            return  Ok(request);
+            return  addCowResult.Match(
+                cow => Ok(_mapper.Map<AddCowResponse>(cow)),
+                errors => Problem(errors));
         }
 
         // [HttpPut("{id}")]

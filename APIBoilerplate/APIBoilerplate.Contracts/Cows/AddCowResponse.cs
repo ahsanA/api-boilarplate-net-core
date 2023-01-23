@@ -7,7 +7,6 @@ namespace APIBoilerplate.Contracts.Cows
         double InitialPrice, 
         DateTime OnBoardingDate,
         string FarmId,
-        DateTime AddedDate,
-        DateTime ModifiedDate
+        DateTime AddedDate
         );
 }
