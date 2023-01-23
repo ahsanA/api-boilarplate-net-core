@@ -16,6 +16,11 @@ namespace APIBoilerplate.Domain.CowAggregate.ValueObjects
         {
             return new(Guid.NewGuid());
         }
+
+        public static CowId Create(Guid value)
+        {
+            return new(value);
+        }
         public override IEnumerable<object> GetEqualityComponents()
         {
             yield return Value;

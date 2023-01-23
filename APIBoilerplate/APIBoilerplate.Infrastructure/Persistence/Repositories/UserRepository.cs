@@ -1,4 +1,4 @@
-namespace APIBoilerplate.Infrastructure.Persistence
+namespace APIBoilerplate.Infrastructure.Persistence.Repositories
 {
     using System.Threading.Tasks;
     using APIBoilerplate.Application.Common.Interfaces.Persistence;

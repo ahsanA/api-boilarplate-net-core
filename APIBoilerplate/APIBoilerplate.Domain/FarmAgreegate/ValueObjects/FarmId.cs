@@ -11,9 +11,14 @@ namespace APIBoilerplate.Domain.FarmAgreegate.ValueObjects
             Value = value;
         }
 
-         public static FarmId Create(string farmId)
+        public static FarmId Create(string farmId)
         {
             return new FarmId(new Guid(farmId));
+        }
+
+        public static FarmId Create(Guid farmId)
+        {
+            return new FarmId(farmId);
         }
 
         public static FarmId CreateUnique()

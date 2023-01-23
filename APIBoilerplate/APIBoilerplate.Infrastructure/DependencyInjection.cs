@@ -3,8 +3,10 @@ using APIBoilerplate.Application.Common.Interfaces.Persistence;
 using APIBoilerplate.Application.Common.Interfaces.Services;
 using APIBoilerplate.Infrastructure.Authentication;
 using APIBoilerplate.Infrastructure.Persistence;
+using APIBoilerplate.Infrastructure.Persistence.Repositories;
 using APIBoilerplate.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -28,6 +30,8 @@ namespace APIBoilerplate.Infrastructure
 
         public static IServiceCollection AddPersistance(this IServiceCollection services )
         {
+            services.AddDbContext<APIBoilerplateDbContext>(options =>
+                options.UseSqlServer());//"Server=(localdb)\\mssqllocaldb;Database=APIBoilerplate;Trusted_Connection=True;MultipleActiveResultSets=true"
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICowRepository, CowRepository>();
             return services;

@@ -1,4 +1,4 @@
-namespace APIBoilerplate.Infrastructure.Persistence
+namespace APIBoilerplate.Infrastructure.Persistence.Repositories
 {
     using APIBoilerplate.Application.Common.Interfaces.Persistence;
     using APIBoilerplate.Domain.CowAggregate;
@@ -8,16 +8,23 @@ namespace APIBoilerplate.Infrastructure.Persistence
 
     public class CowRepository : ICowRepository
     {
-        private static readonly List<Cow> _cows = new ();
+        private readonly APIBoilerplateDbContext _dbContext;
+
+        public CowRepository(APIBoilerplateDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         public Task<Cow> AddCowAsync(Cow cow)
         {
-            _cows.Add(cow);
+            _dbContext.Add(cow);
+            _dbContext.SaveChanges();
             return Task.FromResult(cow);
         }
 
         public Task<int> GetCowCountAsync(FarmId farmId)
         {
-            var cowCount = _cows.FindAll(c => c.FarmId == farmId).Count;
+            var cowCount = _dbContext.Cows.Count(c => c.FarmId == farmId);
             return Task.FromResult(cowCount);
         }
     }
