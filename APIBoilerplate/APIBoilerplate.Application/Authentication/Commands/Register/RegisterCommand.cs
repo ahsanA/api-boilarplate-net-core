@@ -8,5 +8,5 @@ namespace APIBoilerplate.Application.Services.Authentication.Commands.Register
         string FirstName,
         string LastName,
         string Email,
-        string Password): IRequest<ErrorOr<AuthenticationResult>>;
+        string Password) : IRequest<ErrorOr<AuthenticationResult>>;
 }

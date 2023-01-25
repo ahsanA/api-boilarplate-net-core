@@ -1,7 +1,6 @@
+using APIBoilerplate.Domain.UserAggregate;
 namespace APIBoilerplate.Application.Common.Interfaces.Persistence
 {
-    using APIBoilerplate.Domain.UserAggregate;
-
     public interface IUserRepository
     {
         Task<User?> GetUserByEmailAsync(string email);
