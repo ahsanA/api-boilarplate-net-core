@@ -1,11 +1,9 @@
 using APIBoilerplate.Domain.Common.Models;
-
 namespace APIBoilerplate.Domain.UserAggregate.ValueObjects
 {
     public sealed class UserId : ValueObject
     {
-        public Guid Value { get; private set;}
-
+        public Guid Value { get; private set; }
         private UserId(Guid value)
         {
             Value = value;
@@ -25,6 +23,7 @@ namespace APIBoilerplate.Domain.UserAggregate.ValueObjects
         {
             return new(Guid.NewGuid());
         }
+
         public override IEnumerable<object> GetEqualityComponents()
         {
             yield return Value;

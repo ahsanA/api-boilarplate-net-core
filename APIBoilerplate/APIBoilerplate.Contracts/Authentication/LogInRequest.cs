@@ -1,5 +1,5 @@
 namespace APIBoilerplate.Contracts.Authentication;
 
-public record LogInRequest(    
-    string Email, 
+public record LogInRequest(
+    string Email,
     string Password);

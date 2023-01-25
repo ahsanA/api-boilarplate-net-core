@@ -1,11 +1,9 @@
 using APIBoilerplate.Domain.Common.Models;
-
 namespace APIBoilerplate.Domain.CowAggregate.ValueObjects
-
 {
     public sealed class CowId : ValueObject
     {
-        public Guid Value { get; private set;}
+        public Guid Value { get; private set; }
 
         private CowId(Guid value)
         {
@@ -21,6 +19,7 @@ namespace APIBoilerplate.Domain.CowAggregate.ValueObjects
         {
             return new(value);
         }
+
         public override IEnumerable<object> GetEqualityComponents()
         {
             yield return Value;

@@ -29,10 +29,14 @@ namespace APIBoilerplate.Domain.Common.Models
         public static bool operator ==(Entity<TId> a, Entity<TId> b)
         {
             if (ReferenceEquals(a, null) && ReferenceEquals(b, null))
+            {
                 return true;
+            }
 
             if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
+            {
                 return false;
+            }
 
             return a.Equals(b);
         }
