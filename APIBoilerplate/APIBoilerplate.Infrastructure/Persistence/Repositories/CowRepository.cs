@@ -1,11 +1,9 @@
+using APIBoilerplate.Application.Common.Interfaces.Persistence;
+using APIBoilerplate.Domain.CowAggregate;
+using APIBoilerplate.Domain.FarmAgreegate.ValueObjects;
+
 namespace APIBoilerplate.Infrastructure.Persistence.Repositories
 {
-    using APIBoilerplate.Application.Common.Interfaces.Persistence;
-    using APIBoilerplate.Domain.CowAggregate;
-    using APIBoilerplate.Domain.FarmAgreegate.ValueObjects;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-
     public class CowRepository : ICowRepository
     {
         private readonly APIBoilerplateDbContext _dbContext;
@@ -28,5 +26,4 @@ namespace APIBoilerplate.Infrastructure.Persistence.Repositories
             return Task.FromResult(cowCount);
         }
     }
-
 }

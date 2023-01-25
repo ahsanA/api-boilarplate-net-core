@@ -6,5 +6,4 @@ namespace APIBoilerplate.Infrastructure.Services
     {
         public DateTime UtcNow => DateTime.UtcNow;
     }
-
 }

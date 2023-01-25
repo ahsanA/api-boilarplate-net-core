@@ -7,6 +7,5 @@ namespace APIBoilerplate.Infrastructure.Authentication
         public string Issuer { get; init; } = null!;
         public int ExpiryInMinutes { get; init; }
         public string Audience { get; init; } = null!;
-    
     }
 }
