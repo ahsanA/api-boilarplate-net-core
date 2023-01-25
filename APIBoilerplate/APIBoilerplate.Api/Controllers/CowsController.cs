@@ -1,12 +1,8 @@
 using System.Security.Claims;
-
 using APIBoilerplate.Application.Cows.Commands.AddCow;
 using APIBoilerplate.Contracts.Cows;
-
 using MapsterMapper;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIBoilerplate.Api.Controllers
@@ -19,26 +15,10 @@ namespace APIBoilerplate.Api.Controllers
 
         public CowsController(IMapper mapper, ISender mediator)
         {
-            //_cowService = cowService;
+            // _cowService = cowService;
             _mapper = mapper;
             _mediator = mediator;
         }
-
-        // [HttpGet]
-        // public async Task<IActionResult> Get()
-        // {
-        //     var cows = await _cowService.GetCowsAsync();
-        //     var response = _mapper.Map<IEnumerable<CowResponse>>(cows);
-        //     return Ok(response);
-        // }
-
-        // [HttpGet("{id}")]
-        // public async Task<IActionResult> Get(string id)
-        // {
-        //     var cow = await _cowService.GetCowAsync(id);
-        //     var response = _mapper.Map<CowResponse>(cow);
-        //     return Ok(response);
-        // }
 
         [HttpPost]
         public async Task<IActionResult> Post(
@@ -48,7 +28,7 @@ namespace APIBoilerplate.Api.Controllers
             string addedBy = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)!.Value;
             var command = _mapper.Map<AddCowCommand>((request, addedBy, farmId.Substring(1, 36)));
             var addCowResult = await _mediator.Send(command);
-            return  addCowResult.Match(
+            return addCowResult.Match(
                 cow => Ok(_mapper.Map<AddCowResponse>(cow)),
                 errors => Problem(errors));
         }

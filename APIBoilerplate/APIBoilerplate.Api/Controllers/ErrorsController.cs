@@ -1,9 +1,7 @@
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 namespace APIBoilerplate.Api.Controllers
 {
-    using Microsoft.AspNetCore.Diagnostics;
-    using Microsoft.AspNetCore.Mvc;
-
-    
     public class ErrorsController : ControllerBase
     {
         [Route("error")]

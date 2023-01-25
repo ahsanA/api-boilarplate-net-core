@@ -1,4 +1,3 @@
-
 using APIBoilerplate.Api.Common.Errors;
 using APIBoilerplate.Api.Common.Mapping;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -12,7 +11,6 @@ namespace APIBoilerplate.Api
             services.AddControllers();
             services.AddSingleton<ProblemDetailsFactory, CustomProblemDetailsFactory>();
             services.AddMappings();
-            
             return services;
         }
     }

@@ -10,7 +10,7 @@ namespace APIBoilerplate.Api.Common.Mapping
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<(AddCowRequest Request,  string AddedBy, string FarmId), AddCowCommand>()                
+            config.NewConfig<(AddCowRequest Request,  string AddedBy, string FarmId), AddCowCommand>()
                 .Map(dest => dest, src => src.Request)
                 .Map(dest => dest.AddedBy, src => src.AddedBy)
                 .Map(dest => dest.FarmId, src => src.FarmId);
@@ -18,8 +18,6 @@ namespace APIBoilerplate.Api.Common.Mapping
             config.NewConfig<Cow, AddCowResponse>()
                 .Map(dest => dest.Id, src => src.Id.Value)
                 .Map(dest => dest.FarmId, src => src.FarmId.Value);
-                
-                
         }
     }
 }

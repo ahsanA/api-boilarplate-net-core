@@ -12,7 +12,6 @@ namespace APIBoilerplate.Api.Common.Mapping
         {
             config.NewConfig<RegisterCommand, RegisterRequest>();
             config.NewConfig<LoginQuery, LogInRequest>();
-                
             config.NewConfig<AuthenticationResult, AuthenticationResponse>()
                 .Map(dest => dest, src => src.User);
         }
