@@ -11,5 +11,13 @@ namespace APIBoilerplate.Infrastructure.Persistence
         }
 
         public DbSet<Cow> Cows { get; set; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .ApplyConfigurationsFromAssembly(typeof(APIBoilerplateDbContext).Assembly);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

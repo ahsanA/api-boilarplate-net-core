@@ -1,10 +1,9 @@
 namespace APIBoilerplate.Infrastructure.Persistence.Configurations
 {
-    using System;
-
     using APIBoilerplate.Domain.CowAggregate;
     using APIBoilerplate.Domain.CowAggregate.ValueObjects;
     using APIBoilerplate.Domain.FarmAgreegate.ValueObjects;
+    using APIBoilerplate.Domain.UserAggregate.ValueObjects;
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -37,6 +36,17 @@ namespace APIBoilerplate.Infrastructure.Persistence.Configurations
                 .HasConversion(
                     id => id.Value,
                     value => FarmId.Create(value));
+
+             builder.Property(c => c.AddedBy)
+                .HasConversion(
+                    ab => ab.Value,
+                    value => UserId.Create(value)); 
+              
+
+            builder.Property(c => c.ModifiedBy)
+                .HasConversion(
+                    ab => ab.Value,
+                    value => UserId.Create(value));            
         }
     }
 }

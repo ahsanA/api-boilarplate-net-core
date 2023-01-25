@@ -4,7 +4,7 @@ namespace APIBoilerplate.Domain.FarmAgreegate.ValueObjects
 {
     public sealed class FarmId : ValueObject
     {
-        public Guid Value { get; }
+        public Guid Value { get; private set;}
 
         private FarmId(Guid value)
         {

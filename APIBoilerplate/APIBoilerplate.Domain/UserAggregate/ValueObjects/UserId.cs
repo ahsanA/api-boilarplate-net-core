@@ -2,9 +2,9 @@ using APIBoilerplate.Domain.Common.Models;
 
 namespace APIBoilerplate.Domain.UserAggregate.ValueObjects
 {
-   public sealed class UserId : ValueObject
+    public sealed class UserId : ValueObject
     {
-        public Guid Value { get; }
+        public Guid Value { get; private set;}
 
         private UserId(Guid value)
         {
@@ -14,6 +14,11 @@ namespace APIBoilerplate.Domain.UserAggregate.ValueObjects
         public static UserId Create(string userId)
         {
             return new UserId(new Guid(userId));
+        }
+
+        public static UserId Create(Guid userId)
+        {
+            return new UserId(userId);
         }
 
         public static UserId CreateUnique()

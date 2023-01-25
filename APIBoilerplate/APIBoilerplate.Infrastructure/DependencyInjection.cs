@@ -31,7 +31,7 @@ namespace APIBoilerplate.Infrastructure
         public static IServiceCollection AddPersistance(this IServiceCollection services )
         {
             services.AddDbContext<APIBoilerplateDbContext>(options =>
-                options.UseSqlServer());//"Server=(localdb)\\mssqllocaldb;Database=APIBoilerplate;Trusted_Connection=True;MultipleActiveResultSets=true"
+                options.UseSqlServer("Data Source=(local);Initial Catalog=APIBoilerplate;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));//"Server=(localdb)\\mssqllocaldb;Database=APIBoilerplate;Trusted_Connection=True;MultipleActiveResultSets=true"
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICowRepository, CowRepository>();
             return services;

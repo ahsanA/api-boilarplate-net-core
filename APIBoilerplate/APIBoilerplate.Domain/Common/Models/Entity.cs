@@ -1,6 +1,6 @@
 namespace APIBoilerplate.Domain.Common.Models
 {
-    public abstract class Entity<TId>: IEquatable<Entity<TId>>
+    public abstract class Entity<TId> : IEquatable<Entity<TId>>
         where TId : notnull
     {
         public TId Id { get; protected set; }
@@ -9,6 +9,12 @@ namespace APIBoilerplate.Domain.Common.Models
         {
             Id = id;
         }
+
+#pragma warning disable CS8618
+        protected Entity()
+        {
+        }
+#pragma warning restore CS8618
 
         public override bool Equals(object? obj)
         {

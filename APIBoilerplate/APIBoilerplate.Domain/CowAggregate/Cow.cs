@@ -7,17 +7,18 @@ namespace APIBoilerplate.Domain.CowAggregate
 {
     public sealed class Cow : AggregateRoot<CowId>
     {
-        public string DisplayNumber { get; }
-        public double InitialWeight { get; }
-        public double InitialPrice { get; } 
-        public DateTime OnBoardingDate { get; }
+        public string DisplayNumber { get; private set; }
+        public double InitialWeight { get; private set; }
+        public double InitialPrice { get; private set; } 
+        public DateTime OnBoardingDate { get; private set; }
 
-        public DateTime AddedDate { get; }
-        public UserId AddedBy { get; }
-        public DateTime? ModifiedDate { get; }
-        public UserId? ModifiedBy { get; }
-        public FarmId FarmId { get; }
+        public DateTime AddedDate { get; private set; }
+        public UserId AddedBy { get; private set; }
+        public DateTime ModifiedDate { get; private set; }
+        public UserId ModifiedBy { get; private set; }
+        public FarmId FarmId { get; private set; }
 
+        
         private Cow(CowId id,
                     string displayNumber,
                     double initialWeight,
@@ -25,8 +26,8 @@ namespace APIBoilerplate.Domain.CowAggregate
                     DateTime onBoardingDate,
                     DateTime addedDate,
                     UserId addedBy,
-                    DateTime? modifiedDate,
-                    UserId? modifiedBy,
+                    DateTime modifiedDate,
+                    UserId modifiedBy,
                     FarmId farmId) : base(id)
         {
             DisplayNumber = displayNumber;
@@ -39,6 +40,12 @@ namespace APIBoilerplate.Domain.CowAggregate
             ModifiedBy = modifiedBy;
             FarmId = farmId;
         }
+
+#pragma warning disable CS8618
+        private Cow()
+        {
+        }
+#pragma warning restore CS8618
 
         public static Cow Create(string displayNumber,
                                  double initialWeight,
@@ -55,8 +62,8 @@ namespace APIBoilerplate.Domain.CowAggregate
                            onBoardingDate,
                            addedDate,
                            addedBy,
-                           null,
-                           null,
+                           addedDate,
+                           addedBy,
                            farmId);
         }
 

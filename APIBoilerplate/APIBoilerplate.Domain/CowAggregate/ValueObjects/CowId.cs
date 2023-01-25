@@ -5,7 +5,7 @@ namespace APIBoilerplate.Domain.CowAggregate.ValueObjects
 {
     public sealed class CowId : ValueObject
     {
-        public Guid Value { get; }
+        public Guid Value { get; private set;}
 
         private CowId(Guid value)
         {
